@@ -1,44 +1,44 @@
 <template>
-    <form>
+    <form @submit.prevent="create">
         <div>
             <div>
                 <label>Beds</label>
-                <input type="text" />
+                <input v-model.number="form.beds" type="text" />
             </div>
 
             <div>
                 <label>Baths</label>
-                <input type="text" />
+                <input v-model.number="form.baths" type="text" />
             </div>
 
             <div>
                 <label>Area</label>
-                <input type="text" />
+                <input v-model.number="form.area" type="text" />
             </div>
 
             <div>
                 <label>City</label>
-                <input type="text" />
+                <input v-model="form.city" type="text" />
             </div>
 
             <div>
                 <label>Post Code</label>
-                <input type="text" />
+                <input v-model="form.code" type="text" />
             </div>
 
             <div>
                 <label>Street</label>
-                <input type="text" />
+                <input v-model="form.street" type="text" />
             </div>
 
             <div>
                 <label>Street Nr</label>
-                <input type="text" />
+                <input v-model="form.street_nr" type="text" />
             </div>
 
             <div>
                 <label>Price</label>
-                <input type="text" />
+                <input v-model.number="form.price" type="text" />
             </div>
 
             <div>
@@ -49,11 +49,20 @@
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { useForm } from "@inertiajs/inertia-vue3";
 
-const form = reactive({
+const form = useForm({
     beds: 0,
+    baths: 0,
+    area: 0,
+    code: null,
+    city: null,
+    street: null,
+    street_nr: null,
+    price: 0,
 });
+
+const create = () => form.post("/listing");
 </script>
 
 <style scoped>
