@@ -1,6 +1,6 @@
 <template>
-    <Link href="/">Main page</Link>
     <Link href="/listing">Listing page</Link>
+    <Link href="/listing/create">New listing</Link>
 
     <div v-if="flashSuccess" class="success">
         {{ flashSuccess }}
@@ -20,6 +20,6 @@ const flashSuccess = computed(() => page.props.value.flash.success);
 <style scoped>
 .success {
     color: white;
-    background-color: green;
+    background-color: seagreen;
 }
 </style>
