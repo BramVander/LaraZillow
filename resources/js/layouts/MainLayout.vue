@@ -1,6 +1,6 @@
 <template>
     <header
-        class="w-full bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800"
+        class="w-full bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-gray-900"
     >
         <div class="container mx-auto">
             <nav class="p-4 flex items-center justify-between">
@@ -12,18 +12,30 @@
                 >
                     <Link :href="route('listing.index')">LaraZillow</Link>
                 </div>
-                <div>
-                    <Link
-                        :href="route('listing.create')"
-                        class="text-white font-medium p-2 rounded-md bg-indigo-600 hover:bg-indigo-500"
+                <div class="flex items-center gap-4" v-if="user">
+                    <div class="text-sm text-gray-500">
+                        {{ user.name }}
+                    </div>
+                    <Link :href="route('listing.create')" class="btn-primary"
                         >+ New Listing</Link
                     >
+                    <div>
+                        <Link
+                            :href="route('logout')"
+                            method="DELETE"
+                            as="button"
+                            >Logout</Link
+                        >
+                    </div>
+                </div>
+                <div v-else>
+                    <Link :href="route('login')">Sign in</Link>
                 </div>
             </nav>
         </div>
     </header>
 
-    <main class="container mx-auto p-4">
+    <main class="container mx-auto p-4 w-full">
         <div
             v-if="flashSuccess"
             class="mb-4 p-2 border rounded-md shadow-sm border-green-200 bg-green-50 dark:bg-green-600 dark:border-green-900"
@@ -41,4 +53,7 @@ import { computed } from "vue";
 // page.props.value.flash.success
 const page = usePage();
 const flashSuccess = computed(() => page.props.value.flash.success);
+const user = computed(() => page.props.value.user);
+
+console.log(user);
 </script>

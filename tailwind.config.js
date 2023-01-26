@@ -6,12 +6,7 @@ module.exports = {
         "./resources/js/**/*.vue",
     ],
     theme: {
-        extend: {
-            // colors: ({ colors }) => ({
-            //     bram: "#f90a0a",
-            // class: bg-bram
-            // }),
-        },
+        extend: {},
     },
     plugins: [require("@tailwindcss/forms")],
 };
