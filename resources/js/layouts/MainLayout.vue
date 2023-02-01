@@ -28,7 +28,8 @@
                         >
                     </div>
                 </div>
-                <div v-else>
+                <div v-else class="flex items-center gap-2">
+                    <Link :href="route('user-account.create')">Register</Link>
                     <Link :href="route('login')">Sign in</Link>
                 </div>
             </nav>
@@ -54,6 +55,4 @@ import { computed } from "vue";
 const page = usePage();
 const flashSuccess = computed(() => page.props.value.flash.success);
 const user = computed(() => page.props.value.user);
-
-console.log(user);
 </script>
