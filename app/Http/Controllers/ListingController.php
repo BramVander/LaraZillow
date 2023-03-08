@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
-    // public function __construct() {
-    //     $this->middleware('auth')->except('index', 'show');
-    // }
+    public function __construct() {
+        $this->authorizeResource(Listing::class, 'listing');
+    }
 
     /**
      * Display a listing of the resource.

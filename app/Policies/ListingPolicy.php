@@ -2,13 +2,20 @@
 
 namespace App\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
 use App\Models\Listing;
 use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ListingPolicy
 {
     use HandlesAuthorization;
+
+    public function before(?User $user, $ability)
+    {
+        if ($user?->is_admin /*&& $ability === 'update'*/) {
+            return true;
+        }
+    }
 
     /**
      * Determine whether the user can view any models.
@@ -16,9 +23,9 @@ class ListingPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(?User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -28,9 +35,9 @@ class ListingPolicy
      * @param  \App\Models\Listing  $listing
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Listing $listing)
+    public function view(?User $user, Listing $listing)
     {
-        //
+        return true;
     }
 
     /**
@@ -41,7 +48,7 @@ class ListingPolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -53,7 +60,7 @@ class ListingPolicy
      */
     public function update(User $user, Listing $listing)
     {
-        //
+        return $user->id === $listing->by_user_id;
     }
 
     /**
@@ -65,7 +72,7 @@ class ListingPolicy
      */
     public function delete(User $user, Listing $listing)
     {
-        //
+        return $user->id === $listing->by_user_id;
     }
 
     /**
@@ -77,7 +84,7 @@ class ListingPolicy
      */
     public function restore(User $user, Listing $listing)
     {
-        //
+        return $user->id === $listing->by_user_id;
     }
 
     /**
@@ -89,6 +96,6 @@ class ListingPolicy
      */
     public function forceDelete(User $user, Listing $listing)
     {
-        //
+        return $user->id === $listing->by_user_id;
     }
 }
