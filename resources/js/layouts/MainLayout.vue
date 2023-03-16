@@ -13,9 +13,12 @@
                     <Link :href="route('listing.index')">LaraZillow</Link>
                 </div>
                 <div class="flex items-center gap-4" v-if="user">
-                    <div class="text-sm text-gray-500">
+                    <Link
+                        :href="route('realtor.listing.index')"
+                        class="text-sm text-gray-500"
+                    >
                         {{ user.name }}
-                    </div>
+                    </Link>
                     <Link :href="route('listing.create')" class="btn-primary"
                         >+ New Listing</Link
                     >
