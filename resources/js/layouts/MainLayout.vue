@@ -27,6 +27,7 @@
                             :href="route('logout')"
                             method="DELETE"
                             as="button"
+                            class="text-indigo-600 dark:text-gray-400"
                             >Logout</Link
                         >
                     </div>
