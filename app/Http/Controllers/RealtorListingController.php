@@ -13,8 +13,23 @@ class RealtorListingController extends Controller
         $this->authorizeResource(Listing::class, 'listing');
     }
 
-    public function index() {
-        return inertia('Realtor/Index', ['listings' => Auth::user()->listings]);
+    public function index(Request $request)
+    {
+        $filters = [
+            'deleted' => $request->boolean('deleted'),
+            'drafts' => $request->boolean('drafts'),
+            ...$request->only(['by', 'order'])
+        ];
+
+        return inertia(
+            'Realtor/Index',
+            [
+                'listings' => Auth::user()
+                    ->listings()
+                    // ->mostRecent()
+                    ->filter($filters)
+                    ->get()
+            ]);
     }
 
     public function destroy(Listing $listing)
