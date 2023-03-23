@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Listing extends Model
 {
@@ -21,6 +22,12 @@ class Listing extends Model
             \App\Models\User::class,
             'by_user_id'
         );
+    }
+
+    // define relation listing img 1 to many
+    public function images(): HasMany 
+    {
+        return $this->hasMany(ListingImage::class);
     }
 
     public function scopeMostRecent($query) {
