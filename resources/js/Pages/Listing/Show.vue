@@ -6,6 +6,7 @@
                     v-for="image in listing.images"
                     :key="image.id"
                     :src="image.src"
+                    style="width: 350px; height: 200px"
                 />
             </div>
 

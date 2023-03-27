@@ -83,7 +83,15 @@
                                 })
                             "
                             class="w-full block btn-outline text-xs font-medium text-center"
-                            >Images</Link
+                            >Images ({{ listing.images_count }})</Link
+                        >
+                    </div>
+
+                    <!-- :href="route('realtor.listing.offer.create', { listing: listing.id })" -->
+                    <div class="mt-2">
+                        <Link
+                            class="w-full block btn-outline text-xs font-medium text-center"
+                            >Offers ({{ listing.offers_count }})</Link
                         >
                     </div>
                 </section>

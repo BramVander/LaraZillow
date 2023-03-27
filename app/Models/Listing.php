@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Listing extends Model
@@ -28,6 +28,12 @@ class Listing extends Model
     public function images(): HasMany 
     {
         return $this->hasMany(ListingImage::class);
+    }
+
+    // relation offer
+    public function offers(): HasMany 
+    {
+        return $this->hasMany(Offer::class, 'listing_id');
     }
 
     public function scopeMostRecent($query) {
