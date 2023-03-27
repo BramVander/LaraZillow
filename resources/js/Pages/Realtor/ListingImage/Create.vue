@@ -20,14 +20,36 @@
                     Reset
                 </button>
             </section>
+
+            <div v-if="imageErrors.length" class="input-error">
+                <div v-for="(error, index) in imageErrors" :key="index">
+                    {{ error }}
+                </div>
+            </div>
         </form>
     </Box>
 
-    <Box>
+    <Box class="mt-4" v-if="listing.images.length">
         <template #header>Current Listing Images</template>
         <section class="mt-4 grid grid-cols-3 gap-4">
-            <div v-for="image in listing.images" :key="image.id">
+            <div
+                v-for="image in listing.images"
+                :key="image.id"
+                class="flex flex-col justify-between"
+            >
                 <img :src="image.src" class="rounded-md" />
+                <Link
+                    method="DELETE"
+                    as="button"
+                    class="mt-2 btn-outline text-xs"
+                    :href="
+                        route('realtor.listing.image.destroy', {
+                            listing: props.listing.id,
+                            image: image.id,
+                        })
+                    "
+                    >Delete image</Link
+                >
             </div>
         </section>
     </Box>
@@ -36,7 +58,7 @@
 <script setup>
 import { computed } from "vue";
 import Box from "@/Components/UI/Box.vue";
-import { useForm } from "@inertiajs/inertia-vue3";
+import { useForm, Link } from "@inertiajs/inertia-vue3";
 import { Inertia } from "@inertiajs/inertia";
 import NProgress from "nprogress";
 
@@ -51,6 +73,7 @@ const form = useForm({
     images: [],
 });
 
+const imageErrors = computed(() => Object.values(form.errors));
 const canUpload = computed(() => form.images.length);
 
 const upload = () => {
