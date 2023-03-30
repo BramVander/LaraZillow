@@ -90,6 +90,7 @@
             </Box>
 
             <MakeOffer
+                v-if="user"
                 :listing-id="listing.id"
                 :price="listing.price"
             ></MakeOffer>
@@ -103,7 +104,8 @@ import Box from "@/components/UI/Box.vue";
 import ListingAddress from "@/components/ListingAddress.vue";
 import ListingSpace from "@/components/ListingSpace.vue";
 import Price from "@/components/Price.vue";
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { usePage } from "@inertiajs/inertia-vue3";
 
 import { useMonthlyPayment } from "@/composables/useMonthlyPayment";
 
@@ -119,4 +121,8 @@ const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(
     interestRate,
     duration
 );
+
+const page = usePage();
+const flashSuccess = computed(() => page.props.value.flash.success);
+const user = computed(() => page.props.value.user);
 </script>
