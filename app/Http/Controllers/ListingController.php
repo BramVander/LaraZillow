@@ -19,15 +19,14 @@ class ListingController extends Controller
             'priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo'
         ]);
 
-        // $query->where()->active()
-
         return inertia(
             'Listing/Index',
             [
                 'filters' => $filters,
                 'listings' => Listing::mostRecent()
                     ->filter($filters)
-                    ->paginate(9)
+                    ->withoutSold()
+                    ->paginate(10)
                     ->withQueryString()
             ]
         );

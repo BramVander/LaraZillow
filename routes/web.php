@@ -6,6 +6,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\UserAccountController;
 use App\Http\Controllers\ListingOfferController;
+use App\Http\Controllers\RealtorListingAcceptOfferController;
 use App\Http\Controllers\RealtorListingController;
 use App\Http\Controllers\RealtorListingImageController;
 
@@ -43,9 +44,13 @@ Route::prefix('realtor')
       'listing/{listing}/restore',
       [RealtorListingController::class, 'restore']
     )->withTrashed();
+
+    Route::name('offer.accept')->put(
+      'offer/{offer}/accept', 
+      RealtorListingAcceptOfferController::class);
     
     Route::resource('listing', RealtorListingController::class)
-      ->only(['index', 'destroy', 'edit', 'update', 'create', 'store'])
+      // ->only(['index', 'destroy', 'edit', 'update', 'create', 'store'])
       ->withTrashed();
     Route::resource('listing.image', RealtorListingImageController::class)
       ->only(['create', 'store', 'destroy']);

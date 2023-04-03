@@ -40,6 +40,11 @@ class Listing extends Model
         return $query->orderByDesc('created_at');
     }
 
+    public function scopeWithoutSold(Builder $query): Builder
+    {
+        return $query->whereNull('sold_at');
+    }
+
     public function scopeFilter(Builder $query, array $filters): Builder {
         return $query->when(
             $filters['priceFrom'] ?? false,
